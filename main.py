@@ -25,7 +25,12 @@ async def load_and_run_plugins():
 async def main():
     await load_and_run_plugins()
     while running:
-        await asyncio.sleep(1)  
+        await asyncio.sleep(1)
+
+def shutdown():
+    global running
+    print("Shutdown signal received...")
+    running = False
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
@@ -42,4 +47,5 @@ if __name__ == "__main__":
             loop.close()
         except Exception:
             pass
+
 
