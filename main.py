@@ -7,6 +7,9 @@ from shared_client import start_client
 import importlib
 import os
 import sys
+import signal
+
+running = True  # For clean shutdown
 
 async def load_and_run_plugins():
     await start_client()
@@ -21,7 +24,7 @@ async def load_and_run_plugins():
 
 async def main():
     await load_and_run_plugins()
-    while True:
+    while running:
         await asyncio.sleep(1)  
 
 if __name__ == "__main__":
@@ -39,3 +42,4 @@ if __name__ == "__main__":
             loop.close()
         except Exception:
             pass
+
