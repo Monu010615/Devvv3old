@@ -34,6 +34,10 @@ def shutdown():
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
+
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, shutdown)
+        
     print("Starting clients ...")
     try:
         loop.run_until_complete(main())
@@ -47,5 +51,6 @@ if __name__ == "__main__":
             loop.close()
         except Exception:
             pass
+
 
 
