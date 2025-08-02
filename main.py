@@ -48,15 +48,11 @@ if __name__ == "__main__":
         print(e)
         sys.exit(1)
     finally:
-    try:
-        # 🔁 First disconnect from Telegram
-        loop.run_until_complete(client.disconnect())
-        loop.run_until_complete(asyncio.sleep(0.1))  # Let pending tasks settle
-        loop.close()
-        print("Loop closed cleanly.")
-    except Exception as e:
-        print("Error during shutdown:", e)
-
-
-
-
+        try:
+            # 🔁 First disconnect from Telegram
+            loop.run_until_complete(client.disconnect())
+            loop.run_until_complete(asyncio.sleep(0.1))  # Let pending tasks settle
+            loop.close()
+            print("Loop closed cleanly.")
+        except Exception as e:
+            print("Error during shutdown:", e)
