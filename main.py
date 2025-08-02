@@ -8,6 +8,7 @@ import importlib
 import os
 import sys
 import signal
+from shared_client import client
 
 running = True  # For clean shutdown
 
@@ -47,10 +48,15 @@ if __name__ == "__main__":
         print(e)
         sys.exit(1)
     finally:
-        try:
-            loop.close()
-        except Exception:
-            pass
+    try:
+        # 🔁 First disconnect from Telegram
+        loop.run_until_complete(client.disconnect())
+        loop.run_until_complete(asyncio.sleep(0.1))  # Let pending tasks settle
+        loop.close()
+        print("Loop closed cleanly.")
+    except Exception as e:
+        print("Error during shutdown:", e)
+
 
 
 
